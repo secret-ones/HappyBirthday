@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 16th Birthday Czarylle!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #d4e9ff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; font-family: Arial, sans-serif; }
+        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; animation: fadeIn 0.6s ease; }
+        .active-tab { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-weight: bold; color: #ffffff; font-size: 52px; margin-top: 50px; text-align: center; z-index: 10; text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; }
+
+        /* CUTE BLUE MUSIC BUTTON */
+        .music-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; z-index: 100; }
+        #play-btn { 
+            background: linear-gradient(135deg, #6fb1fc 0%, #077df7 100%); 
+            border: none; padding: 15px 40px; border-radius: 50px; 
+            font-family: 'Dancing Script', cursive; font-size: 24px; color: white; cursor: pointer; 
+            box-shadow: 0 5px 15px rgba(7, 125, 247, 0.4); transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        #play-btn:hover { transform: scale(1.08); box-shadow: 0 8px 20px rgba(7, 125, 247, 0.6); }
+        .music-note { font-size: 14px; color: #077df7; margin-top: 8px; font-weight: bold; font-family: 'Arial', sans-serif; }
+
+        /* POLAROID STYLES */
+        .polaroid { background: white; padding: 10px 10px 35px 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: transform 0.4s; cursor: pointer; position: relative; z-index: 10; }
+        .img-stack { position: relative; width: 100%; height: 100%; overflow: hidden; background-color: #f0f0f0; }
+        .img-stack img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.5s; }
+        .img-reveal { opacity: 0; }
+        .home-tilt:hover { transform: scale(1.3) rotate(0deg) !important; z-index: 50; }
+        .home-tilt:hover .img-top { opacity: 0; }
+        .home-tilt:hover .img-reveal { opacity: 1; }
+
+        /* LAYOUTS */
+        .collage-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 900px; margin: 20px auto; }
+        .home-tilt { width: 160px; height: 160px; }
+        .home-tilt:nth-child(odd) { transform: rotate(-3deg); }
+        .home-tilt:nth-child(even) { transform: rotate(3deg); }
+        .long-strip { width: 140px; height: 380px; }
+        .wide-16-9 { width: 260px; height: 146px; }
+        .square-1-1 { width: 180px; height: 180px; }
+        .bullet-pic { width: 70px; height: 70px; padding-bottom: 20px; flex-shrink: 0; }
+
+        .letter-box { background: rgba(255,255,255,0.6); padding: 30px; border-radius: 20px; max-width: 350px; text-align: center; color: #333; line-height: 1.6; }
+        .achievement-item { display: flex; align-items: center; gap: 20px; width: 90%; max-width: 600px; margin-bottom: 15px; }
+        
+        .heart-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+        .heart { position: absolute; color: #077df7; font-size: 20px; animation: float 6s linear infinite; }
+        @keyframes float { 0% { transform: translateY(110vh); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+        .cat-btn { background: white; border: none; border-radius: 50%; width: 65px; height: 65px; font-size: 30px; cursor: pointer; margin-top: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 10; margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <audio id="serenade-music" loop>
+        <source src="Serenade.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="heart-container" id="heart-bg"></div>
+
+    <div id="home-tab" class="tab-content active-tab">
+        <h1>Happy Birthday Czarylle!!</h1>
+        <div class="music-wrapper">
+            <button id="play-btn" onclick="toggleMusic()">💙 Play Serenade 💙</button>
+            <div class="music-note">"Serenade - BOYNEXTDOOR"</div>
+        </div>
+        <div class="collage-container">
+            <div class="polaroid home-tilt" onclick="showTab('czay-tab')"><div class="img-stack"><img src="https://via.placeholder.com/300?text=Letter" class="img-top"><img src="https://via.placeholder.com/300/077df7/fff?text=OPEN" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('memories-tab')"><div class="img-stack"><img src="https://via.placeholder.com/300?text=Memories" class="img-top"><img src="https://via.placeholder.com/300/077df7/fff?text=8+PICS" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('grid-tab')"><div class="img-stack"><img src="https://via.placeholder.com/300?text=Grid" class="img-top"><img src="https://via.placeholder.com/300/077df7/fff?text=9+PICS" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('achieve-tab')"><div class="img-stack"><img src="https://via.placeholder.com/300?text=Achieve" class="img-top"><img src="https://via.placeholder.com/300/077df7/fff?text=8+ITEMS" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('credits-tab')"><div class="img-stack"><img src="https://via.placeholder.com/300?text=Credits" class="img-top"><img src="https://via.placeholder.com/300/077df7/fff?text=WHO?" class="img-reveal"></div></div>
+        </div>
+    </div>
+
+    <div id="czay-tab" class="tab-content">
+        <h1>For Czayy</h1>
+        <div style="display:flex; gap:30px; align-items:center; z-index:10; margin-top:20px;">
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+            </div>
+            <div class="letter-box">
+                <p>Happy 16th Birthday! Wishing you a day filled with love and laughter. You are amazing!</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+                <div class="polaroid" style="width:90px; height:90px;"><img src="https://via.placeholder.com/90"></div>
+            </div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="memories-tab" class="tab-content">
+        <h1>Memories</h1>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; max-width:850px; z-index:10;">
+            <div class="polaroid long-strip"><img src="https://via.placeholder.com/140x380"></div>
+            <div class="polaroid long-strip"><img src="https://via.placeholder.com/140x380"></div>
+            <div class="polaroid wide-16-9"><img src="https://via.placeholder.com/260x146"></div>
+            <div class="polaroid wide-16-9"><img src="https://via.placeholder.com/260x146"></div>
+            <div class="polaroid wide-16-9"><img src="https://via.placeholder.com/260x146"></div>
+            <div class="polaroid square-1-1"><img src="https://via.placeholder.com/180x180"></div>
+            <div class="polaroid square-1-1"><img src="https://via.placeholder.com/180x180"></div>
+            <div class="polaroid square-1-1"><img src="https://via.placeholder.com/180x180"></div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="grid-tab" class="tab-content">
+        <h1>More Moments</h1>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; z-index:10;">
+            <div class="polaroid square-1-1" onclick="showTab('grid-1')"><img src="https://via.placeholder.com/180?text=1"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-2')"><img src="https://via.placeholder.com/180?text=2"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-3')"><img src="https://via.placeholder.com/180?text=3"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-4')"><img src="https://via.placeholder.com/180?text=4"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-5')"><img src="https://via.placeholder.com/180?text=5"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-6')"><img src="https://via.placeholder.com/180?text=6"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-7')"><img src="https://via.placeholder.com/180?text=7"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-8')"><img src="https://via.placeholder.com/180?text=8"></div>
+            <div class="polaroid square-1-1" onclick="showTab('grid-9')"><img src="https://via.placeholder.com/180?text=9"></div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="achieve-tab" class="tab-content">
+        <h1>Achievements</h1>
+        <div style="z-index:10;">
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement one.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement two.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement three.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement four.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement five.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement six.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement seven.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic"><img src="https://via.placeholder.com/70"></div><p>Description for achievement eight.</p></div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="credits-tab" class="tab-content">
+        <h1>Credits</h1>
+        <div class="letter-box"><p>Made with love for Czarylle. Happy 16th!</p></div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="grid-subtabs-container"></div>
+
+    <script>
+        const audio = document.getElementById('serenade-music');
+        const startSec = 152; // 2:32
+        const endSec = 213;   // 3:33
+        let isMusicActive = false;
+
+        function toggleMusic() {
+            if (!isMusicActive) {
+                audio.currentTime = startSec;
+                audio.play();
+                document.getElementById('play-btn').innerText = "⏸ Pause Serenade";
+                isMusicActive = true;
+            } else {
+                audio.pause();
+                document.getElementById('play-btn').innerText = "💙 Play Serenade 💙";
+                isMusicActive = false;
+            }
+        }
+
+        // PRECISE LOOPING WITHIN THE TIMESTAMP
+        audio.addEventListener('timeupdate', () => {
+            if (audio.currentTime >= endSec) {
+                audio.currentTime = startSec;
+                audio.play();
+            }
+        });
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+            document.getElementById(id).classList.add('active-tab');
+            
+            // Logic: Only play music on the home tab
+            if (id === 'home-tab') {
+                if (isMusicActive) audio.play();
+            } else {
+                audio.pause();
+            }
+            window.scrollTo(0,0);
+        }
+
+        // SUB-TABS GENERATION
+        const container = document.getElementById('grid-subtabs-container');
+        for(let i=1; i<=9; i++) {
+            const div = document.createElement('div');
+            div.id = `grid-${i}`;
+            div.className = 'tab-content';
+            div.innerHTML = `<h1>Who is this?</h1><div class="polaroid square-1-1" style="width:250px;height:250px;"><img src="https://via.placeholder.com/250?text=Photo+${i}"></div><div class="letter-box" style="margin-top:20px;">Placeholder for photo ${i} content.</div><button class="cat-btn" onclick="showTab('grid-tab')">🐱</button>`;
+            container.appendChild(div);
+        }
+
+        // FLOATING HEARTS
+        setInterval(() => {
+            const h = document.createElement('div'); h.className = 'heart'; h.innerHTML = '💙';
+            h.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('heart-bg').appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }, 600);
+    </script>
+</body>
+</html>

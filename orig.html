@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 16th Birthday Czarylle!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #d4e9ff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; font-family: Arial, sans-serif; }
+        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; animation: fadeIn 0.6s ease; }
+        .active-tab { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-weight: bold; color: #ffffff; font-size: 52px; margin-top: 50px; text-align: center; z-index: 10; text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; }
+        
+        .home-footer { font-family: 'Dancing Script', cursive; font-weight: bold; color: #ffffff; font-size: 32px; margin: 40px 20px; text-align: center; z-index: 10; text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000; }
+
+        .music-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; z-index: 100; }
+        .play-btn { 
+            background: linear-gradient(135deg, #6fb1fc 0%, #077df7 100%); 
+            border: none; padding: 12px 30px; border-radius: 50px; 
+            font-family: 'Dancing Script', cursive; font-size: 20px; color: white; cursor: pointer; 
+            box-shadow: 0 5px 15px rgba(7, 125, 247, 0.4); transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(7, 125, 247, 0.6); }
+        .music-note { font-size: 13px; color: #077df7; margin-top: 8px; font-weight: bold; font-family: 'Arial', sans-serif; }
+
+        .polaroid { background: white; padding: 10px 10px 35px 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: transform 0.4s; cursor: pointer; position: relative; z-index: 10; }
+        .polaroid img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .img-stack { position: relative; width: 100%; height: 100%; overflow: hidden; background-color: #f0f0f0; }
+        .img-stack img { position: absolute; top: 0; left: 0; transition: opacity 0.5s; }
+        .img-reveal { opacity: 0; }
+        .home-tilt:hover { transform: scale(1.3) rotate(0deg) !important; z-index: 50; }
+        .home-tilt:hover .img-top { opacity: 0; }
+        .home-tilt:hover .img-reveal { opacity: 1; }
+
+        #zoom-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center;
+            cursor: zoom-out; animation: fadeIn 0.3s ease;
+        }
+        #zoom-img { max-width: 90%; max-height: 80%; border: 10px solid white; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+
+        .collage-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 900px; margin: 20px auto; }
+        .home-tilt { width: 160px; height: 160px; }
+        .home-tilt:nth-child(odd) { transform: rotate(-3deg); }
+        .home-tilt:nth-child(even) { transform: rotate(3deg); }
+        .long-strip { width: 140px; height: 380px; }
+        .wide-16-9 { width: 260px; height: 146px; }
+        .square-1-1 { width: 180px; height: 180px; }
+        .bullet-pic { width: 70px; height: 70px; padding-bottom: 20px; flex-shrink: 0; }
+
+        .birthday-message, .achievement-item p { 
+            font-family: 'Georgia', serif; 
+            font-weight: bold; 
+            font-size: 18px; 
+            color: #333; 
+        }
+
+        .letter-box { background: rgba(255,255,255,0.6); padding: 30px; border-radius: 20px; max-width: 1000px; text-align: center; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .letter-box1 { background: rgba(255,255,255,0.6); padding: 30px; border-radius: 20px; max-width: 350px; text-align: center; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .letter-box2 { background: rgba(255,255,255,0.6); padding: 30px; border-radius: 20px; max-width: 500px; text-align: center; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .achievement-item { display: flex; align-items: center; gap: 20px; width: 90%; max-width: 600px; margin-bottom: 15px; }
+        
+        .heart-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+        .heart { position: absolute; color: #077df7; font-size: 20px; animation: float 6s linear infinite; }
+        @keyframes float { 0% { transform: translateY(110vh); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+        .cat-btn { background: white; border: none; border-radius: 50%; width: 65px; height: 65px; font-size: 30px; cursor: pointer; margin-top: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 10; margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <audio id="serenade-music"><source src="Serenade.mp3" type="audio/mpeg"></audio>
+    <audio id="darling-music"><source src="Dear. My Darling.mp3" type="audio/mpeg"></audio>
+    <audio id="paths-music"><source src="NIKI - Paths (Official Lyric Video) (1).mp3" type="audio/mpeg"></audio>
+    <audio id="magnets"><source src="NIKI - Magnets (Official Lyric Video).mp3" type="audio/mpeg"></audio>
+    <audio id="birthday-music"><source src="Happy Birthday Song  CoComelon Nursery Rhymes & Kids Songs.mp3" type="audio/mpeg"></audio>
+    <audio id="baywang-music"><source src="ang balikat at baywang.mp3" type="audio/mpeg"></audio>
+    <audio id="isip-music"><source src="Kathang Isip.mp3" type="audio/mpeg"></audio>
+    <audio id="intertwine-music"><source src="Over October - Intertwine (Official Lyric Video) ft. The Ridleys.mp3" type="audio/mpeg"></audio>
+    <audio id="zild-15-music"><source src="Zild - 15 (Official Audio).mp3" type="audio/mpeg"></audio>
+    <audio id="ating-dalawa-music"><source src="Over October - Ating Dalawa (Lyric Video) (1).mp3" type="audio/mpeg"></audio>
+    <audio id="love-you-music"><source src="BOYNEXTDOOR (보이넥스트도어) - IF I SAY, I LOVE YOU (오늘만 I LOVE YOU) (Color Coded Lyrics).mp3" type="audio/mpeg"></audio>
+
+    <div id="zoom-overlay" onclick="closeZoom()">
+        <img id="zoom-img" src="" alt="Zoomed Image">
+    </div>
+
+    <div class="heart-container" id="heart-bg"></div>
+
+    <div id="home-tab" class="tab-content active-tab">
+        <h1>Happy Birthday Czarylle!!</h1>
+        <div class="music-wrapper">
+            <button id="play-btn-home" class="play-btn" onclick="toggleMusic('home')">💙 Play Serenade 💙</button>
+            <div class="music-note">"Serenade - BOYNEXTDOOR"</div>
+        </div>
+        <div class="collage-container">
+            <div class="polaroid home-tilt" onclick="showTab('czay-tab')"><div class="img-stack"><img src="pop1.gif" class="img-top"><img src="pop.gif" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('memories-tab')"><div class="img-stack"><img src="h.jpg" class="img-top"><img src="h1.gif" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('achieve-tab')"><div class="img-stack"><img src="front.gif" class="img-top"><img src="front 2.gif" class="img-reveal"></div></div>
+            <div class="polaroid home-tilt" onclick="showTab('credits-tab')"><div class="img-stack"><img src="pol.gif" class="img-top"><img src="pol2.gif" class="img-reveal"></div></div>
+        </div>
+        <div class="home-footer">Happy 16th Birthday to you Czayy!! We love you!</div>
+    </div>
+
+    <div id="czay-tab" class="tab-content">
+        <h1>For Czayy</h1>
+        <div class="music-wrapper">
+            <button id="play-btn-birthday" class="play-btn" onclick="toggleMusic('birthday')">🎂 Play Birthday Song 🎂</button>
+            <div class="music-note">"Happy Birthday - CoComelon"</div>
+        </div>
+        <div style="display:flex; gap:30px; align-items:center; z-index:10; margin-top:20px;">
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="selfie2.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="5a0d636d-8d2a-41c4-88d3-ff26bed521e1.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="skeri.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="fce6012b-699e-4014-aba6-66aa6da34d24.jpg"></div>
+            </div>
+            <div class="letter-box1">
+                <p class="birthday-message">HAPPY BIRTHDAY CZARYLLE!! We hope magustuhan mo itong gawa namin para sayo! Enjoy your 
+                    day and stay kind!! We wish you the best in life and more birthdays and BND concerts to come. Onti na lang, 
+                    Senior High School na tayo and we hope na you Success not only in academics but in life. We are always here for
+                     you like you're always here for us. So take this "little" gift from us. Thank you and take care Czarylle!! Happy Birthday Czayyyy!!</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:15px;">
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="solod.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="selfie.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="candid.jpg"></div>
+                <div class="polaroid" style="width:90px; height:90px;" onclick="openZoom(this)"><img src="279dafe7-4dff-4c6c-ae42-19192f2a2124.jpg"></div>
+            </div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="memories-tab" class="tab-content">
+        <h1>Memories</h1>
+        <div class="music-wrapper">
+            <button id="play-btn-memories" class="play-btn" onclick="toggleMusic('memories')">🎵 Play Dear. My Darling 🎵</button>
+            <div class="music-note">"Dear. My Darling - BOYNEXTDOOR"</div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px; max-width:850px; z-index:10;">
+            <div class="polaroid long-strip" onclick="openZoom(this)"><img src="photobooth kaylah.jpg"></div>
+            <div class="polaroid long-strip" onclick="openZoom(this)"><img src="pb renee.jpg"></div>
+            <div class="polaroid long-strip" onclick="openZoom(this)"><img src="8.jpg"></div>
+            <div class="polaroid long-strip" onclick="openZoom(this)"><img src="pb.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="hongsam.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="smcfest.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="Group.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="pic 1.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="renee.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="naol.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="trio.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="pbs.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="pakyu.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="elementary.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="1.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="2.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="3.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="94adb8f2-9208-4f9e-b4cc-b6d0a416c492.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="5.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="6.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="7.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="9.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="kaylah.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="MSHOT.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="tulog.png"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="potpot.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="kaylah2.jpg"></div>
+            <div class="polaroid square-1-1" onclick="openZoom(this)"><img src="solo.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="xmas9.JPG"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="kaylahsz.jpg"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="smc fest.JPG"></div>
+            <div class="polaroid wide-16-9" onclick="openZoom(this)"><img src="g7.jpg"></div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="achieve-tab" class="tab-content">
+        <h1>Achievements</h1>
+        <div class="music-wrapper">
+            <button id="play-btn-achieve" class="play-btn" onclick="toggleMusic('achieve')">✨ Play Paths ✨</button>
+            <div class="music-note">"Paths - NIKI"</div>
+        </div>
+        <div style="z-index:10;">
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="retreat.JPG"></div><p>Congratulations and thank you for being open sa retreat!!</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="Field trip.JPG"></div><p>Enjoyed na enjoyed yung field trip kaya nakatulog.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="bnd.JPG"></div><p>OMGGGG!! First BOYNEXTDOOR concert mo!! More comcerts to come!</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="reco9.JPG"></div><p>Grade 9 Recollection, staying strong ka dito( bangis ng mirror shot)</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="mamma.jpg"></div><p>Survived the Mamma Mia pt kasi nakapunta sa practice na puro byahe!</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="dengue.JPG"></div><p>Glad that u survived dengue, even if di ka naka-attend sa last day.</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="simba.JPG"></div><p>Nagka-apo ka galing kay simba!!</p></div>
+            <div class="achievement-item"><div class="polaroid bullet-pic" onclick="openZoom(this)"><img src="solos.JPG"></div><p>Well, you've not only grown physically but you've also grown as a woman, a friend and a person. And that's the greatest achievement that you can be proud of.</p></div>
+        <div class="letter-box2"><h2>Special Letter from Andrea Beatriz</h2>
+        <p>"Happiest Birthday, Czay!!!
+
+I hope you enjoy your day today, may God bless you with all the things you desire in life! Gusto ko lang din mag thank 
+you for being a good friend to me. Palagi kang nand’yan when I need someone kahit hindi tayo super duper close. Thank 
+youu din na palagi kang nakikinig sa mga rants ko kahit paminsan walang kwenta 🥲🥲 Kahit napaka opposite natin, nagtutugma 
+parin tayo?!?! HAHAHAHAHAH Siguro nagsasawa ka na sa’kin na palagi kong sinasabi ‘to, pero mamimiss kita so much! Bibisitahin 
+parin kita sa SMC and sana pagpalain ka SHS life mo. Kahit magbagong buhay na ako o makalimutan ko na yung buhay ko sa SMC, I’ll never 
+forget our memories together and I’ll always be forever grateful for uu!! You never judged me, and never mo ‘kong trinato na parang outcast. 
+Isa ka sa mga tao na super grateful ako ever since grade 8 dahil isa ka sa mga nakakaintindi sa’kin. Thank you for always making me feel 
+included and yung mga chikahan natin HAHAHAHAHA sana sa March maging seatmates tayoo kasi ang tahimik ng buhay ko sa likod hahajahaha 😅 
+Always be the gentle and open-minded person that we all love! Continue on sharing your kindness and wit to everyone! ❤️ Happy Birthday Czayy, I love you sm!! 😚😚"</p>
+        </div>
+        </div>
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <div id="credits-tab" class="tab-content">
+        <h1>Credits</h1>
+        
+        <div class="music-wrapper">
+            <button id="play-btn-love" class="play-btn" onclick="toggleMusic('love')">Song for 1st Paragraph</button>
+            <div class="music-note">"Magnets"</div>
+        </div>
+        <div class="letter-box"><p>Haiiii, HAPPY BIRTHDAY! So ayun, I think you know naman na kung 
+            sino gumawa netoh. HAHAHAHAHA HAIHAIIII, I hope you're doing well and being better. 
+            I just want to say a few things o baka maging many pa nga eh, bear with me nalang huhu. 
+            This website gift is possible because of your friends!! You should also thank them 
+            because this gift won't be possible kung di dahil sa kanila. Firstly, I want to thank you for 
+            everything you've done. Sa simula't una, ikaw yung nagshoshow up. I know that 
+            "you're not good with words" pero di naman yun yung basehan ko when I'm down. 
+            I just need the presence of someone when I'm down, the feeling that someone is staying by your 
+            side — being peacefully silent. And that presence, that someone, that person who I want 
+            to stay and have by my side is you. The fact that from the first time we've met, 
+            you're just there. You're just listening to me — yapping about my likes and all. Partida 
+            messenger pa tayo nagchachat non😭. That may be one of the days na naenjoy ko 
+            mag-open sa tao na bago ko pa lang nakilala. I really felt the peace and comfort in your 
+            presence. And ayun, naging magkatabi tayo and mas naging close pa lalo. And lowkey 
+            ikaw yung pinaka matino na nakatabi ko sa buong seating arrangements na naganap, no joke. 
+            You're so kind and patient to me, like so much😭. So at once, I show immediate 
+            concern nung nalaman ko na masama yung condition mo nung last days ng grade 9, glad that you 
+            survived!! Meeting you made me felt that there's still kind and genuine people in 
+            this world. I was right when I expect you to be kind and all simula nung una kitang makita 
+            nung grade 9. You're not only good looking outside, but your heart is also pure. You're 
+            really interesting as I always say, mind you na minsan lang ako magshow ng interest sa tao. 
+            Like sa first sight and all. Baka di ka maniwala pero seryoso ako don😭. You're the reason 
+            of many changes sa sarili ko. The reason na may mga nadiscover ako and mga nabago sa sarili 
+            ko na dapat baguhin at matuklasan. I don't expect na magugustuhan ko ulit yung kpop cuz of u. 
+            Medj di ko talaga siya bet sa simula't una pero I just listen to the wrong groups lang pala. 
+            You also teached me how to play Heongsam!! It was really fun and lowkey 
+            I really miss playing with you. Di lang heongsam pero yung mga kulitan natin and all miss ko na. 
+            And grade 9 ends. My grade 9 ended happily after meeting you.</p></div>
+
+        <div class="music-wrapper">
+            <button id="play-btn-baywang" class="play-btn" onclick="toggleMusic('baywang')">Song for 2nd Paragraph</button>
+            <div class="music-note">"Ang Balikat at Baywang"</div>
+        </div>
+        <div class="letter-box"><p>Medj tumagal pa talaga admiration ko sayo non and umabot siya ng first half of 
+            summer break. Lowkey, muntik nako mabaliw sa pinaggagagawa ko. I was overthinking and all, seeing if you 
+            really cared or what, so I just did what I shouldn't do talaga before😭. First confession ko sayo HAHAHAHAHAHA.
+             And lowkey sana di ko nalang yun ginawa para talaga slowburn type shit yung nangyare diba? pero it happened na 
+             eh, ano pa ba magagawa ko. Even so, I tried to move on cuz you said so. And ayun, I stopped admiring you hanggang 
+             mag last day ng enrollment. Ilang days nakalipas, a week or two i think. I stopped na totally. Ayun blablabla, ang 
+             manhid ko sobra sa parts na wala akong nanonotice sa mga actions mo sakin. And manhid ko sa part na di ko man 
+             lang nakikita yung hints and efforts mo sa akin. Then ayun, while giving me your efforts and all — I was being
+             careless na sa mga pinaggagagawa ko and I hurt you like so much. The tragedy happened and ayun, you didn't leave. 
+             You didn't leave when I have no one. Lowkey, gusto ko mapag-isa non but you insist on staying. And that's when I realize na, 
+             di sa lahat ng bagay, kailangan mong mapag-isa. Di sa lahat ng bagay, kailangan mong masolusyunan mag-isa. You're the one who 
+             initiated na you'll stay, without me even asking you to stay by my side. At that point, I really thought that you'll also 
+             leave me for what I have done and become. But instead of leaving, you changed me — changed me for good. You gave me a second 
+             chance to redeem myself as a friend. You've made a big impact to me, and having you as a friend is the best thing I had in my 
+             life so far. You literally saved me, your presence saved me. You said you're not good with words but the words isn't really what 
+             I need, I need a person who stays. You saved me from getting pulled by the voices inside my head. You saved me from dying, literally. 
+             And everytime I have problems that I don't want to be judged, I always look for you and you're always the first one to know. 
+             Tulad nung basketball game, I just want someone to listen — to be seen. Lowkey, I was disappointed nung di ka nagrereply or 
+             nagseseen man lang, cuz I knew nakita mo yon, I knew na ayaw mo lang yun buksan and all I want is a little support and to feel 
+             that I am seen and heared without judgement or anything else, showing up is enough and saying "it's fine" is better than leaving 
+             me delivered. I was hurt, pero I gave you another chance — chinat kita sa dump ko and ayun, you responded. And lowkey, kahit makita
+              ko lang yung slight reactions from you. Gumaan na loob ko, so thank you na even if "You're not good with words" you're still trying, 
+              you're being there, showing up. You did more than I wanted, more than I expected, more than I needed. Thank you for the efforts you gave 
+              to me. Pero one of the best efforts that really gave me the tears of joy na minsan ko lang matanggap is nung binigay mo yung gatorade before 
+              smc fest exhibition and the bday gift. Sorry if mabibring up ko yung cringe things pero let the mood and atmosphere take over. 
+              I really appreciated it, it was priceless. The effort that you put in the gifts, the thoughts, every material, every stroke. 
+              I really appreciate them. It was a moment of softness while I read the letters, the words that your own hands woven. It made me cry, 
+              it made me feel contented. And those gifts are still in my wallet, those gifts are kept hidden and cherished all day. Thank you for everything you did to me.</p></div>
+
+        <div class="music-wrapper">
+            <button id="play-btn-isip" class="play-btn" onclick="toggleMusic('isip')">Song for 3rd Paragraph</button>
+            <div class="music-note">"Kathang Isip"</div>
+        </div>
+        <div class="letter-box"><p>I'm really sorry if sumosobra ako, 'di ko maipagkakaila na may mga kasalanan din akong nagawa sayo. 
+            Medj I have things na hurted you and I want to say sorry. I made you feel like an option, I'm really sorry. I'm also sorry 
+            that I'm annoying and all. I'm really sorry for feeling jealous, for seeking much attention. Lowkey, I didn't expect na I 
+            have this jealous side😭. Pero there's something that I'm really sorry for. It is not making your first time, one of the best 
+            experiences in your life. I've made mistakes and made you uncomfortable and pressured in some way that made you left me. You may 
+            say that it's your fault for feeling like that, but for me — I don't see anything wrong from what you did. I want to take the blame, 
+            I made you feel pressured. As the first one you took the risk for, I'm really sorry for making your first experience bad. 
+            I know may mga things naman na magandang nangyare sa atin pero, there are things na 'di pa talaga natin nakikita sa sarili 
+            natin and we have an identity crisis that led us to conflicts and misunderstandings. And those misunderstanding about ouselves 
+            led us to hindrances to deeper connections and intimacy. We still have many things to learn, but I'm still hoping that we can learn 
+            with each other's company. I'm always open if you're ready, I'm still waiting for you to be open. But for now, 
+            I'm still sorry for everything I did wrong to you.</p></div>
+
+        <div class="music-wrapper">
+            <button id="play-btn-ating-dalawa" class="play-btn" onclick="toggleMusic('atingDalawa')">Song for 4th Paragraph</button>
+            <div class="music-note">"Ating Dalawa - Over October"</div>
+        </div>
+        <div class="letter-box"><p>Knowing you was the best thing, like it was one of the best thungs happened in 2025.
+             Andaming naganap sa 2025 na sobrang lala, like as in. But most of the moments na masaya ako is nandoon ka.
+              Most of the best things happened in 2025 was with you. Remembering them still makes me smile, knowing that it 
+              happened to me. You peaked my interest and we became friends. After that, we made memories and all. From random gala 
+              kasama friends mo, to the moment na hinahatid pa kita sa farmers after ng galaan. I miss those days, careless about what's
+               tomorrow and what will people say. I thought that was casual pero lowkey hindi pala😅. The moment you introduced me to d'cream,
+                binabalik balikan ko na siya after. After knowing kung anong pasikot sikot na daan jan sa farmers, I used them. The moments na
+                 pinakilala mo yung things na ganito and ganyan, I started to like them. One of the things na really nagustuhan ko after mong i-introduce
+                  sakin is BOYNEXTDOOR. Like, it was one of the reasons kung bat ako nahilig sa kpop once again. Knowing you also made me calmer. There are times
+                   na nakikipag bardagulan ako sa mga kaibigan ko sa likod that leads to some accidents and all. Pero after ko matabi sayo, medj parang ayoko nang umalis
+                    sa kinalalagyan ko. Like when there are free times and all, I choose to sit next to you or sa lapag kasama kaibigan mo instead of going at the boys. 
+                    Cuz like, I choose to be close to you since your presence gives me real happiness rather than quick happiness and a long term guilt and regret after when
+                     I'm with the boys. Di ko pa ata nasasabi sayo toh or what pero nasabi ko toh kay Lhian eh HAHAHAAHAH: "Pag nangungupal ako ng tao, pag alam kong malala na...
+                      Nagsosorry ako, kasi I feel the guilt. Oo aaminin ko natuwa ako sa pangungupal pero iba yung genuine happiness kesa sa quick happiness with an after effect of guilt.
+                      " And lowkey, I find genuine happiness when I'm with you. So if napapansin mo man or what, I don't care about how fun the boys are doing as long as 
+                      I'm with you, I'm contented and happy. Knowing you encourages me to do better. From sports to academics. From hobbies to work. I worked hard after I 
+                      met you because the biggest help I can get is a word from you. Even a little "kaya mo yan" or something like that, lits up my mood. That's why nagvarsity
+                       ako, you supported me and all, you're always there when I'm up and when I'm down. You're the reason I keep moving. And lowkey that's why I chose your number
+                        to be my ersey num. To remind me why I'm doing this. I also worked hard, like literal work. Nagtrabaho ako to earn money to buy gifts for you😭. Pero wag ka
+                         maguilty dahil di mo naubos pera ko. Halos lahat ng pera ko nasa tiyan ko na😭. Pero seryoso, I worked again to earn money and buy gifts for you. That's why 
+                         I'm satisfied when you appreciate the gifts I gave you. All of then are made by efforts. I also study hard, so that I can teach you things that you can't understand.
+                          In short, I became better, just for you and because of you.</p></div>
+
+        <div class="music-wrapper">
+            <button id="play-btn-zild" class="play-btn" onclick="toggleMusic('zild')">Song for 5th Paragraph</button>
+            <div class="music-note">"15 - Zild"</div>
+        </div>
+        <div class="letter-box"><p>Lowkey, I didn't expect na magkakaroon pa ako ng isa pang gift sayo, di ko expect na kaya ko 
+            palang gawin toh para lang sayo. Madami akong nagawa na di mo alam, madami dami yung sacrifices na nagawa ko. Pero I want to
+             let you know para mapakita na I'm willing to do everything I can, not to make you feel guilty. I want you to appreciate the efforts,
+              not be sad because of what I did tas wala kang magawa. Cuz I do this to make you happy and to make you satisfied. Recently, andami kong nilakad. 
+              Inikot ko yung buong araneta, pumunta sa Sta. Lucia, sa Robinsons, tas sa Ayala mall para lang sa fuggler m... The original plan was to go to ortigas, 
+              SM megamall, since may kakilala ako don and may condominium kami don. Pero imbis na sa mrt pumunta, sa lrt. Pumunta nalang ako sa marikina-pasig station 
+              cuz dun yung maraming malls. Edi inikot ko yung buong Sta. Lucia pati robinsons. Wala akong nakita, tas nadaanan ko pala yung ayala mall, medj malayo sa train 
+              station but I chose to walk. Naglakad ako ng medj mahaba, tas naghanap. Luckily I found toys Rus and nabili ko na fuggler mo. Bumalik ako sa araneta tas bumili 
+              ng Mini Boquet, then nakauwi na ako sa bahay mga bandang 9:00+ na. Tas lowkey, puyat na puyat ako these days is because of the website. The website is hand typed 
+              and self made. Medjo mahaba yung coding nya pero it was worth it? I hope so. All of those while keeping myself in work(both digital work and irl work), Academics, 
+              hobbies, liesure time, varsity, responsibilities and you. Lahat ng yon napagsabay ko while still giving you time. Nagipon ako nang nagipon, minsan nga di nako 
+              gumagastos sa gala namin eh, prioritizing you. Maybe yung mga actions kong toh is grabeng grabe. Pero I hope you got the message that I will do everything I can 
+              do for you. So I hope you appreciate everything I gave instead of having the guilt. A little thank you and a smile payed everything off. No debt, no extra tax, 
+              nothing else. Just by seeing you happy, my tiredness wores out.</p></div>
+
+        <div class="music-wrapper">
+            <button id="play-btn-intertwine" class="play-btn" onclick="toggleMusic('intertwine')">Song for 6th Paragraph</button>
+            <div class="music-note">"intertwine"</div>
+        </div>
+        <div class="letter-box"><p>But even in the days that I'm really busy, even in the days that my schedule is loaded. 
+            I still think about how wasteful I became. Sinayang ko yung chance, the chance of loving you and having you by my 
+            side in a deep manner. Nasayangan ako boi. well maybe it is really my fault for being too much, for being the one 
+            who needs the attention of someone who isn't used to be giving affection. I was my fault. Yes, I admit that you have 
+            some mistakes but lowkey, if you think of it in a deeper level, I'm the one who should be blamed since I can't change 
+            for someone I love even if that person said to me already that I should change. You gave me another chance as situationship, 
+            but I lost it. Yes, I tried but I think trying is not enough. But even if our relationship was full of confusion, discoveries, 
+            misunderstanding and uncertainty. It was really fun, it was a good run tbh. I really enjoyed the time that we shared together.
+             Di lang nung after mo umamin pero nung mga times na di mo pa sinasabi yung nararamdaman mo sa akin and we're just really close 
+             friends na laging nashiship. Those moments, I always look back at it and the nostalgia hits. I really miss those times that we're 
+             just 2 people who's hiding the feelings for each other. Tbh, I really do backread to our messages. The moments that we shared and 
+             the things we talked about the most. I really hate the nickname "stephanie" but recently, when I look back from the past. 
+             I realized that "stephanie" wasn't bad at all. That being called "phanie" by you is one of the things I find cute nowadays. 
+             The moment na hinahatid pa kita sa farmers. And lowkey I still do, maybe not you anymore, but the ghost of you. If I felt the 
+             feeling of missing you so badly, I always go to the route we always take when I'm walking you home. Drinking the drink you've 
+             introduced me and playing the music I've dedicated to you. I even cried once while doing it. I'm reimagining the things we used 
+             to do while walking. Reminiscing about how happy we are with each other's company. Doing goofy walks, talking, laughing and just 
+             being ourselves. Confessing what our heart feels, saying what we really want to say. It really is true that "I yearned more than 
+             I had you". I yearned for you more than I expected, I cried every night yearning for you. I cried at the school bathroom, sa farmers, 
+             sa retreat, even in the classroom. But lowkey, not all of those are tears of sadness. Some of them are tears of joy. The joy from the 
+             fact that you are here for me. The joy from the fact that you stayed even in hard times. You've done too much for me Czay, you've 
+             tolerated my red flag problematic side. Tinanggap mo ko, kung ano man ako, maingay, magulo, minsan pa nga sumosobra na ako eh. Pero 
+             you still stayed, you still tried. I'm sorry if you've lost the spark, but I can't change what you feel. I can just hope for the best 
+             and wait for eternity even if you don't let me. Czarylle, I'm sorry in advance if this is cringe but. If the moment is replayed again, 
+             if there will be a chance of having you by my side and walking you home again or any moments that I'm with you again, I will cherish it. 
+             And if you'll let me, I'll hold you hand — since I haven't held your hands tight, haven't felt the warmth that it gives. Since I haven't 
+             even said the things I wanted to say to you before, even if I have the chance to tell you so. Sa dami ng nangyare sa ating dalawa. I haven't 
+             even held your hand tight, sa dami ng pinagusapan nating dalawa, I haven't even said I love you directly and tell the things I wanted to really 
+             tell to you. So for once, I would like to take this opportunity, even if it feels wrong. Czarylle, I love you — I really do. I loved the thought 
+             of being with you and spending time with you. Because to be honest, I really miss you, I really miss you everytime we part ways. I miss you 
+             everytime we didn't talk, I miss you like I miss the old us. I hate to admit it but I can't afford losing you. Czarylle, you're the first girl,
+              the first person who made me felt this way. And I hope you understand where I am rooting for and what I want to say. I don't expect things to be 
+              reciprocated, I don't expect things to be given back to me. I just want to show that you deserved to be loved, that you deserved to have things that 
+              you want. That you deserve to flex that there is someone for you that will always support you and will be by your side through ups and downs. Czayy, 
+              I will always love you and nothing can change that, I will love you the best way I can. I want to learn how to love you, learn to handle you. 
+              I like you, and I'm willing to wait even a millennium just to be with you.</p></div> 
+
+        <div class="music-wrapper">
+            <button id="play-btn-love-you" class="play-btn" onclick="toggleMusic('loveYou')">Song for 7th Paragraph</button>
+            <div class="music-note">"IF I SAY, I LOVE YOU - BOYNEXTDOOR"</div>
+        </div>
+        <div class="letter-box"><p>Enough na sa drama and baka nacicringe kana, I'm really sorry. Pero now that everything I want to say is said na. 
+            I want to say na I hope you the best in life. I hope you can achieve the dreams you dream to be. I will always support you, we will always 
+            support you. As your self proclaimed No. 1 Fan I'll always be cheering by yourside and be there for you when you need someone. I hope you can be 
+            successful in life and finally I hope you can know yourself better. I hope you can have the courage you wish to have, the braveness you wanted to 
+            possess and I hope you will change your "avoidance" for the better. Czarylle, it may look sad pero. I'll be silent na for now. I'll be admiring you 
+            nalang muna Czarylleee. I will just be there, waiting but not making a move na siguro. It's not like I'm quitting but it's because I want you to have 
+            the "freedom" you really wanted. So for once, I'll let you be and I'll let you be happy. I want to prioritise your happiness even if the reason of your 
+            happiness isn't me anymore. Dw, I'm always be here, If you'll reach out and you need me. I'm always here. If you're doubting yourself, I'll try my best to 
+            strengthen you.  If you want some soft hours and someone to have in silence or loudnsss. I'm always here. If you want to hang out or what, I'm always 
+            available (kahit magpalibre ka pa, okay lang). I'm willing to give you reassurance if you're confused, if you're doubting me. I really like you Czarylle. 
+            I just want you to feel "free". Thank you for the chances and everything you've done to me Czarylleee. 
+            Happy Birthday!! ENJOYSZ PU DAMMYY! (pic natin sa moving up ha, grrr)</p></div>
+
+        <button class="cat-btn" onclick="showTab('home-tab')">🐱</button>
+    </div>
+
+    <script>
+        const audioHome = document.getElementById('serenade-music');
+        const audioMemories = document.getElementById('darling-music');
+        const audioAchieve = document.getElementById('paths-music');
+        const audiolove = document.getElementById('magnets');
+        const audioBirthday = document.getElementById('birthday-music');
+        const audioBaywang = document.getElementById('baywang-music');
+        const audioIsip = document.getElementById('isip-music');
+        const audioIntertwine = document.getElementById('intertwine-music');
+        const audioZild = document.getElementById('zild-15-music');
+        const audioAtingDalawa = document.getElementById('ating-dalawa-music');
+        const audioLoveYou = document.getElementById('love-you-music');
+
+        const allAudio = [audioHome, audioMemories, audioAchieve, audiolove, audioBirthday, audioBaywang, audioIsip, audioIntertwine, audioZild, audioAtingDalawa, audioLoveYou];
+
+        function resetBtns() {
+            document.getElementById('play-btn-home').innerText = "💙 Play Serenade 💙";
+            document.getElementById('play-btn-memories').innerText = "🎵 Play Dear. My Darling 🎵";
+            document.getElementById('play-btn-achieve').innerText = "✨ Play Paths ✨";
+            document.getElementById('play-btn-love').innerText = "Song for 1st Paragraph";
+            document.getElementById('play-btn-birthday').innerText = "🎂 Play Birthday Song 🎂";
+            document.getElementById('play-btn-baywang').innerText = "Song for 2nd Paragraph";
+            document.getElementById('play-btn-isip').innerText = "Song for 3rd Paragraph";
+            document.getElementById('play-btn-ating-dalawa').innerText = "Song for 4th Paragraph";
+            document.getElementById('play-btn-zild').innerText = "Song for 5th Paragraph";
+            document.getElementById('play-btn-intertwine').innerText = "Song for 6th Paragraph";
+            document.getElementById('play-btn-love-you').innerText = "Song for 7th Paragraph";
+        }
+
+        function toggleMusic(type) {
+            const btns = {
+                home: document.getElementById('play-btn-home'),
+                memories: document.getElementById('play-btn-memories'),
+                achieve: document.getElementById('play-btn-achieve'),
+                love: document.getElementById('play-btn-love'),
+                birthday: document.getElementById('play-btn-birthday'),
+                baywang: document.getElementById('play-btn-baywang'),
+                isip: document.getElementById('play-btn-isip'),
+                atingDalawa: document.getElementById('play-btn-ating-dalawa'),
+                zild: document.getElementById('play-btn-zild'),
+                intertwine: document.getElementById('play-btn-intertwine'),
+                loveYou: document.getElementById('play-btn-love-you')
+            };
+
+            const currentAudio = {
+                home: audioHome, memories: audioMemories, achieve: audioAchieve, 
+                love: audiolove, birthday: audioBirthday, baywang: audioBaywang, 
+                isip: audioIsip, atingDalawa: audioAtingDalawa, zild: audioZild, 
+                intertwine: audioIntertwine, loveYou: audioLoveYou
+            }[type];
+
+            if (currentAudio.paused) {
+                allAudio.forEach(a => a.pause());
+                resetBtns();
+                
+                if(type === 'home') currentAudio.currentTime = 152;
+                if(type === 'baywang') currentAudio.currentTime = 296; 
+                if(type === 'intertwine') currentAudio.currentTime = 208; 
+                
+                currentAudio.play();
+                btns[type].innerText = "⏸ Pause Song";
+            } else {
+                currentAudio.pause();
+                resetBtns();
+            }
+        }
+
+        audioHome.addEventListener('timeupdate', () => {
+            if (audioHome.currentTime >= 213) { 
+                audioHome.currentTime = 152;
+                audioHome.play();
+            }
+        });
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active-tab');
+            
+            allAudio.forEach(a => a.pause());
+            resetBtns();
+            window.scrollTo(0,0);
+        }
+
+        function openZoom(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('zoom-img').src = imgSrc;
+            document.getElementById('zoom-overlay').style.display = 'flex';
+        }
+
+        function closeZoom() { document.getElementById('zoom-overlay').style.display = 'none'; }
+
+        setInterval(() => {
+            const h = document.createElement('div'); h.className = 'heart'; h.innerHTML = '💙';
+            h.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('heart-bg').appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }, 600);
+    </script>
+</body>
+</html>
